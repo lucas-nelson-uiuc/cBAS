@@ -1,1 +1,1 @@
-# stout-case-studies
+# College Basketball Analysis System (cBAS)
