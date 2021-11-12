@@ -58,19 +58,21 @@ extract_team_data = function(team.name, valid.start, relative.season) {
   
   # update date query if previous season requested
   if (relative.season == 'previous') {valid.start = valid.start - 1}
-  print(glue('  == QUERY == {team.name} (team) {valid.start - 1}-{valid.start} (season)'))
+  print(glue('> {valid.start - 1}-{valid.start} data for {team.name}'))
   
   # gather previous season game statistics using game IDs
   team.previous_game_ids = load_wbb_team_box(valid.start) %>% 
     filter(team_id == team.info$team_id) %>%
     select(game_id)
   
+  if (relative.season == 'lastone') {team.previous_game_ids %>% slice_tail(n=1)}
   if (relative.season == 'lastfive') {team.previous_game_ids %>% slice_tail(n=5)}
+  if (relative.season == 'lastten') {team.previous_game_ids %>% slice_tail(n=10)}
   
-  print(glue('    ... Extracting {valid.start - 1}-{valid.start} data for {team.name}'))
+  print(glue('  ... Extracting data.frames'))
   dfs = apply(team.previous_game_ids, 1, espn_wbb_game_all)
   
-  print(glue('    ... Merging {team.name} {valid.start - 1}-{valid.start} data.frames'))
+  print(glue('  ... Merging data.frames'))
   player_df_list = list()
   for (i in 1:length(dfs)) {
     player_df_list[[i]] = dfs[[i]]$Player
@@ -113,11 +115,25 @@ extract_team_data = function(team.name, valid.start, relative.season) {
   return(team.statistics)
 }
 
-format_team_data = function(previous_dataframe, lastfive_dataframe, current_dataframe) {
-  previous_dataframe %>%
+format_team_data = function(previous_dataframe,
+                            current_dataframe,
+                            career_dataframe,
+                            lastten_dataframe,
+                            lastfive_dataframe,
+                            lastone_dataframe) {
+  
+  lastX_dataframe = lastten_dataframe %>%
     dplyr::bind_rows(lastfive_dataframe) %>%
-    dplyr::bind_rows(current_dataframe) %>%
+    dplyr::bind_rows(lastone_dataframe) %>%
     arrange(athlete_display_name) %>%
+    select(athlete_display_name, season, GP, MIN,
+           PTS, RBS, AST, fgp, ftp)
+  
+  previous_dataframe %>%
+    dplyr::bind_rows(current_dataframe) %>%
+    dplyr::bind_rows(career_dataframe) %>%
+    arrange(athlete_display_name) %>%
+    dplyr::bind_rows(lastX_dataframe) %>%
     select(athlete_display_name, season, GP, MIN,
            PTS, RBS, AST, fgp, ftp)
 }
@@ -133,28 +149,41 @@ main = function() {
   home.team = valid.query[[1]][1]
   away.team = valid.query[[2]][1]
   
-  # extract previous season and current season data.frames per team
+  # extract previous season and current season data.frames for home.team
   home.current_dataframe = extract_team_data(home.team, valid.start, 'current') %>%
     mutate(season = glue('{valid.start-1}-{valid.start-0-2000}'))
+  home.lastten_dataframe = extract_team_data(home.team, valid.start, 'lastten') %>%
+    mutate(season = 'Prev10')
   home.lastfive_dataframe = extract_team_data(home.team, valid.start, 'lastfive') %>%
-    mutate(season = 'Previous5')
+    mutate(season = 'Prev5')
+  home.lastone_dataframe = extract_team_data(home.team, valid.start, 'lastone') %>%
+    mutate(season = 'Prev1')
   home.previous_dataframe = extract_team_data(home.team, valid.start, 'previous') %>%
     filter(athlete_display_name %in% home.current_dataframe$athlete_display_name) %>%
     mutate(season = glue('{valid.start-2}-{valid.start-1-2000}'))
+  home.career_dataframe = home.current_dataframe %>%
+    mutate(season='Career', GP=0, MIN=0, PTS=0, REB=0, AST=0, fgp=0, ftp=0)
+  # extract previous season and current season data.frames for away.team
   away.current_dataframe = extract_team_data(away.team, valid.start, 'current') %>%
     mutate(season = glue('{valid.start-1}-{valid.start-0-2000}'))
+  away.lastten_dataframe = extract_team_data(away.team, valid.start, 'lastten') %>%
+    mutate(season = 'Prev10')
   away.lastfive_dataframe = extract_team_data(away.team, valid.start, 'lastfive') %>%
-    mutate(season = 'Previous5')
+    mutate(season = 'Prev5')
+  away.lastone_dataframe = extract_team_data(away.team, valid.start, 'lastone') %>%
+    mutate(season = 'Prev1')
   away.previous_dataframe = extract_team_data(away.team, valid.start, 'previous') %>%
     filter(athlete_display_name %in% home.current_dataframe$athlete_display_name) %>%
     mutate(season = glue('{valid.start-2}-{valid.start-1-2000}'))
+  away.career_dataframe = away.current_dataframe %>%
+    mutate(season='Career', GP=0, MIN=0, PTS=0, REB=0, AST=0, fgp=0, ftp=0)
  
-  home.results = format_team_data(home.previous_dataframe,
-                                  home.lastfive_dataframe,
-                                  home.current_dataframe)
-  away.results = format_team_data(away.previous_dataframe,
-                                  away.lastfive_dataframe,
-                                  away.current_dataframe)
+  home.results = format_team_data(home.previous_dataframe, home.current_dataframe,
+                                  home.career_dataframe, home.lastten_dataframe,
+                                  home.lastfive_dataframe, home.lastone_dataframe)
+  away.results = format_team_data(away.previous_dataframe, away.current_dataframe,
+                                  away.career_dataframe, away.lastten_dataframe,
+                                  away.lastfive_dataframe, away.lastone_dataframe)
   
   wb = createWorkbook()
   home.data = createSheet(wb, sheetName='Home_Data')
