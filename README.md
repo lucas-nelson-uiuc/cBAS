@@ -1,6 +1,9 @@
 # College Basketball Analysis Scoresheet System (cBASS)
 
-[![HitCount](http://hits.dwyl.com/lucas-nelson-uiuc/cBASS.svg?style=flat-square)](http://hits.dwyl.com/lucas-nelson-uiuc/cBASS)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![GitHub stars](https://badgen.net/github/stars/lucas-nelson-uiuc/cBASS)](https://GitHub.com/lucas-nelson-uiuc/cBASS)
+[![GitHub issues](https://badgen.net/github/issues/lucas-nelson-uiuc/cBASS/)](https://GitHub.com/lucas-nelson-uiuc/cBASS/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/lucas-nelson-uiuc/cBASS.svg)](https://GitHub.com/lucas-nelson-uiuc/cBASS/pull/)
 
 ![Animated GIF of CLI usage](https://media.giphy.com/media/y7X27SNnBws4KhhXTB/giphy.gif)
 
