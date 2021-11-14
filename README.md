@@ -1,5 +1,7 @@
 # College Basketball Analysis Scoresheet System (cBASS)
 
+[![HitCount](http://hits.dwyl.com/lucas-nelson-uiuc/cBASS.svg?style=flat-square)](http://hits.dwyl.com/lucas-nelson-uiuc/cBASS)
+
 ![Animated GIF of CLI usage](https://media.giphy.com/media/y7X27SNnBws4KhhXTB/giphy.gif)
 
 ---
