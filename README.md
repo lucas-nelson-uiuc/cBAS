@@ -1,7 +1,5 @@
 # College Basketball Analysis Scoresheet System (cBASS)
 
-Home of the College Basketball Analysis Scoresheet System (cBASS)
-
 ![newer Text](https://media.giphy.com/media/y7X27SNnBws4KhhXTB/giphy.gif)
 
 ## Installation
