@@ -19,7 +19,7 @@ $ python3 -m venv name-of-virtual-environment
 $ . name-of-virtual-environment/bin/activate
 ```
 
-**Install required packages**. if package cannot be installed, remove package from `requirements.txt` and run `pip install -r requirements.txt` again
+**Install required packages**. If package cannot be installed, remove package from `requirements.txt` and run `pip install -r requirements.txt` again
 
 ```
 $ pip install -r requirements.txt
