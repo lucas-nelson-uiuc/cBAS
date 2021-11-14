@@ -157,7 +157,7 @@ if __name__ == '__main__':
     # log results: file name, date saved, time saved
     print('=' * 53)
     print('''
-    cBAS system successfully gathered and stored data
+    cBASS system successfully gathered and stored data
         > File name: {}-{}-{}
         > Datestamp: {}
         > Timestamp: {}
