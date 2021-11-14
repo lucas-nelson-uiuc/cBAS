@@ -1,8 +1,6 @@
 # College Basketball Analysis Scoresheet System (cBASS)
 
-
 ![Animated GIF of CLI usage](https://media.giphy.com/media/y7X27SNnBws4KhhXTB/giphy.gif)
-
 
 ---
 
