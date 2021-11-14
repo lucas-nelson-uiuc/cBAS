@@ -33,3 +33,12 @@ Locate the directory for the `cBASS` repository and `cd` into `mens_cbb`. Run `p
 $ cd mens_cbb
 $ python3 cbbMens.py
 ```
+
+## Women's CBB Data
+
+Locate the directory for the `cBASS` repository and `cd` into `womens_cbb`. Run `Rscript cbbWomens.R` and follow the on-screen prompts. The resulting `.xlsx` file will be saved to the same repository, but can be changed in the source file.
+
+```
+$ cd womens_cbb
+$ Rscript cbbWomens.R
+```
