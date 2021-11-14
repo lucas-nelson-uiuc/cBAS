@@ -11,6 +11,7 @@
 **Clone this repository from the command line** by running the following command (must have `git` installed)
 
 ```
+$ cd path/to/new/folder
 $ git clone https://github.com/lucas-nelson-uiuc/cBASS.git
 ```
 
