@@ -77,15 +77,11 @@ class TeamData():
 
         ints = ['weight', 'games_played', 'minutes_played', 'points', 'rebounds', 'assists']
         floats = ['field_goal_percentage', 'free_throw_percentage']
-        per_game = ['minutes_played', 'points', 'rebounds', 'assists']
 
         for col in ints:
             self.team_dataframe[col] = self.team_dataframe[col].astype('int64')
         for col in floats:
             self.team_dataframe[col] = self.team_dataframe[col].fillna(0).astype('float64') * 100
-        for col in per_game:
-            self.team_dataframe[col] = self.team_dataframe[col] / self.team_dataframe['games_played']
-            self.team_dataframe[col] = self.team_dataframe[col].round(1)
     
     def insert_missing_player_data(self):
 
