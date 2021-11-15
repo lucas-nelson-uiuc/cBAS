@@ -12,7 +12,23 @@ from sportsipy.ncaab.roster import Roster, Player
 
 class TeamData():
 
+    '''
+    Class for individual team. Contains surface-level description of team
+    (team name), relational database key (team_id), and parameters
+    necessary for sportsipy functions
+    '''
+
     def __init__(self, team_name, season_year):
+
+        '''
+        Initialization of TeamData instance
+
+        Parameters
+        ----------
+            team_name (str)  : name of the team; verified in Division01_Teams.txt
+            season_year (int): year of ongoing or most recent season
+        '''
+
         self.team_name = team_name
         self.team_id = '-'.join(self.team_name.split(' ')).lower()
         self.team_dataframe = pd.DataFrame()
@@ -22,6 +38,13 @@ class TeamData():
 
     
     def create_team_dataframe(self):
+
+        '''
+        Generate pd.DataFrame for each team to be updated and later written
+        to .xlsx file at the end of the script
+
+        Self-fulfilling function (i.e. no parameters and no returns)
+        '''
 
         print('> Extracting {}\'s roster'.format(self.team_name))
         team_roster = Roster(self.team_id)
@@ -44,15 +67,41 @@ class TeamData():
                     'field_goal_percentage', 'free_throw_percentage']]
     
     def clean_team_dataframe(self):
+
+        '''
+        Assign proper data types and convert data to per game statistics
+        instead of season-by-season aggregates
+
+        Self-fulfilling function (i.e. no parameters and no returns)
+        '''
+
         ints = ['weight', 'games_played', 'minutes_played', 'points', 'rebounds', 'assists']
         floats = ['field_goal_percentage', 'free_throw_percentage']
+        per_game = ['minutes_played', 'points', 'rebounds', 'assists']
 
         for col in ints:
             self.team_dataframe[col] = self.team_dataframe[col].astype('int64')
         for col in floats:
             self.team_dataframe[col] = self.team_dataframe[col].fillna(0).astype('float64') * 100
+        for col in per_game:
+            self.team_dataframe[col] = self.team_dataframe[col] / self.team_dataframe['games_played']
+            self.team_dataframe[col] = self.team_dataframe[col].round(1)
     
     def insert_missing_player_data(self):
+
+        '''
+        Create empty rows for players who do not have data for previous season,
+        current season, or career (empty row generated for seasons that meet
+        criteria).
+
+        Returns
+        _______
+            self.team_dataframe (pd.DataFrame):
+                final dataframe for team; each player has three rows for
+                previous season, current season, and career (empty if no
+                data exists for said row)
+        '''
+
         player_season_dict = {}
         for player, season in zip(self.team_dataframe['player_name'], self.team_dataframe['season']):
             if player not in player_season_dict:
@@ -79,7 +128,26 @@ class TeamData():
 
 class ExcelWorksheet():
 
+    '''
+    Class for instantiating .xlsx file to write data to
+    '''
+
     def __init__(self, home_dataframe, away_dataframe, home_team, away_team, save_date):
+
+        '''
+        Initialize worksheet by passing relevant dataframes and save information
+
+        Parameters
+        __________
+            home_dataframe (pd.DataFrame): dataframe returned from
+                TeamData(home_team, YYYY).team_dataframe
+            away_dataframe (pd.DataFrame): dataframe returned from
+                TeamData(away_team, YYYY).team_dataframe
+            home_team (str)              : name of home team
+            away_team (str)              : name of away team
+            save_date (datetime)         : date when script executed
+        '''
+
         self.home_dataframe = home_dataframe
         self.away_dataframe = away_dataframe
         self.home_team = home_team
@@ -88,8 +156,8 @@ class ExcelWorksheet():
 
     def write_to_excel(self):
         with pd.ExcelWriter('{}-{}-{}.xlsx'.format(self.home_team, self.away_team, self.save_date)) as output_xlsx:  
-            self.home_dataframe.to_excel(output_xlsx, sheet_name='Home-Data')
-            self.away_dataframe.to_excel(output_xlsx, sheet_name='Away-Data')
+            self.home_dataframe.to_excel(output_xlsx, sheet_name=f'{home_team}-Data')
+            self.away_dataframe.to_excel(output_xlsx, sheet_name=f'{away_team}-Data')
 
 
 if __name__ == '__main__':
@@ -97,7 +165,7 @@ if __name__ == '__main__':
     print('=' * 65)
 
     print('''
-    Welcome to the College Basketball Analysis System (cBAS)
+    Welcome to the College Basketball Analysis Scoresheet System (cBASS)
         > Follow on-screen instructions to properly query
           data from Sports Reference.
         > Files will be saved to the same directory where
