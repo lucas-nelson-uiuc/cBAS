@@ -1,12 +1,22 @@
-# College Basketball Analysis Scoresheet System (cBASS)
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/78045025/141704335-4bd5f8b3-9683-4502-b674-6a235f0f1837.png">
+</div>
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flucas-nelson-uiuc%2FcBASS&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-[![GitHub stars](https://badgen.net/github/stars/lucas-nelson-uiuc/cBASS)](https://GitHub.com/lucas-nelson-uiuc/cBASS)
-[![GitHub issues](https://badgen.net/github/issues/lucas-nelson-uiuc/cBASS/)](https://GitHub.com/lucas-nelson-uiuc/cBASS/issues/)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/lucas-nelson-uiuc/cBASS.svg)](https://GitHub.com/lucas-nelson-uiuc/cBASS/pull/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
-![Animated GIF of CLI usage](https://media.giphy.com/media/y7X27SNnBws4KhhXTB/giphy.gif)
+<div align="center">
+  <h1>College Basketball Analysis Scoresheet System (cBASS)</h1>
+</div>
+
+<div align="center">
+
+  [![Tweet](https://img.shields.io/twitter/url/https/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=%F0%9F%93%A2%20Various%20README%20templates%20and%20tips%20on%20writing%20high-quality%20documentation%20that%20people%20want%20to%20read.&url=https://github.com/lucas-nelson-uiuc/academia_epidemia/edit/main/spotipy_analysis)
+  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flucas-nelson-uiuc%2FcBASS&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+  [![GitHub stars](https://badgen.net/github/stars/lucas-nelson-uiuc/cBASS)](https://GitHub.com/lucas-nelson-uiuc/cBASS)
+  [![GitHub issues](https://badgen.net/github/issues/lucas-nelson-uiuc/cBASS/)](https://GitHub.com/lucas-nelson-uiuc/cBASS/issues/)
+  [![GitHub pull-requests](https://img.shields.io/github/issues-pr/lucas-nelson-uiuc/cBASS.svg)](https://GitHub.com/lucas-nelson-uiuc/cBASS/pull/)
+  [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/lucas-nelson-uiuc/cBASS/graphs/commit-activity)
+
+</div>
 
 ---
 
