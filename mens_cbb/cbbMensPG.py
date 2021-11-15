@@ -137,7 +137,7 @@ class TeamData():
                                                                 'height', 'weight'], axis=1)
         self.per_game_dataframe.rename(columns={col:f'{col}.PG' for col in self.per_game_dataframe.columns},
                                inplace=True)
-        return pd.concat([HomeTeam.team_dataframe, HomeTeam.per_game_dataframe], axis=1)
+        return pd.concat([self.team_dataframe, self.per_game_dataframe], axis=1)
 
 
 
